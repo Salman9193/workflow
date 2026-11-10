@@ -1,0 +1,21 @@
+@if (loading) {
+  <p class="loading">Loading form…</p>
+} @else if (!schema) {
+  <p class="empty-state">Form "{{ formSchemaName }}" not found.</p>
+} @else {
+  <div class="renderer-wrapper" [class.review-mode]="mode === 'review'">
+    @if (mode === 'edit' && changeComment) {
+      <div class="change-comment-banner">
+        <strong>Reviewer requested a change:</strong>
+        <p>{{ changeComment }}</p>
+      </div>
+    }
+
+    <formio
+      [form]="schema.definition"
+      [submission]="submissionWrapper"
+      [readOnly]="mode === 'review'"
+      (submit)="onSubmit($event)">
+    </formio>
+  </div>
+}

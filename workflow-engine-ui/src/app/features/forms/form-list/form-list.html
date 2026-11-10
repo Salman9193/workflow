@@ -1,0 +1,15 @@
+<div class="list-page">
+  <header>
+    <h2>Forms</h2>
+    <a routerLink="/admin/forms/new">+ New Form</a>
+  </header>
+
+  @for (schema of schemas; track schema.id) {
+    <a class="list-row" [routerLink]="['/admin/forms', schema.id, 'edit']">
+      <span class="name">{{ schema.name }}</span>
+      <span class="version">v{{ schema.version }}</span>
+    </a>
+  } @empty {
+    <p>No forms yet.</p>
+  }
+</div>

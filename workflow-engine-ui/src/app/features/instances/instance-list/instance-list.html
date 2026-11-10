@@ -1,0 +1,18 @@
+<div class="list-page">
+  <header>
+    <h2>{{ workflowId ? workflowName + ' — Instances' : 'All Instances' }}</h2>
+    @if (workflowId) {
+      <a [routerLink]="['/instances/new', workflowId]">+ Start New</a>
+    }
+  </header>
+  <div class="instance-list">
+    @for (inst of instances; track inst.id) {
+      <a class="instance-row" [routerLink]="['/instances', inst.id]">
+        <span class="name">{{ inst.name }}</span>
+        <span class="status" [class]="'status-' + inst.status">{{ inst.status }}</span>
+      </a>
+    } @empty {
+      <p>No instances yet.</p>
+    }
+  </div>
+</div>

@@ -1,0 +1,22 @@
+.loading,
+.empty-state {
+  color: var(--mat-sys-on-surface-variant, #666);
+  font-style: italic;
+  padding: 16px;
+}
+
+.renderer-wrapper {
+  padding: 16px;
+}
+
+// Read-only review mode gets a visual cue — subtle tint, no interaction affordances
+.review-mode {
+  background: rgba(176, 141, 87, 0.03);
+  border: 1px solid var(--hairline, #DAD5CB);
+  border-radius: 2px;
+}
+
+.saving-indicator {
+  color: var(--mat-sys-primary, #1565c0);
+  font-size: 13px;
+}

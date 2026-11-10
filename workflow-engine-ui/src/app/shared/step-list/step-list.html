@@ -1,0 +1,12 @@
+<div class="step-list">
+  @for (step of steps; track step.id) {
+    <app-step-card
+      [name]="step.name"
+      [type]="step.type"
+      [status]="step.status"
+      (cardClicked)="onCardClicked(step)">
+    </app-step-card>
+  } @empty {
+    <p class="empty-state">No steps yet.</p>
+  }
+</div>

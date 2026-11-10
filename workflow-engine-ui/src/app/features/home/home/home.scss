@@ -1,0 +1,26 @@
+.home-page {
+  text-align: center;
+  padding: 64px 16px;
+
+  h1 {
+    font-family: var(--font-serif, inherit);
+    font-weight: 600;
+    color: var(--mat-sys-primary, #B08D57);
+  }
+
+  p {
+    color: var(--mat-sys-on-surface-variant, #6B7280);
+    margin-top: 8px;
+  }
+
+  button {
+    margin-top: 16px;
+    background: var(--mat-sys-primary, #B08D57);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+}

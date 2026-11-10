@@ -1,0 +1,8 @@
+<div class="list-page">
+  <h2>Workflow Instances</h2>
+  @for (wf of workflows; track wf.id) {
+    <a class="list-row" [routerLink]="['/workflow-templates', wf.id, 'instances']">
+      <span class="name">{{ wf.name }}</span>
+    </a>
+  }
+</div>

@@ -1,0 +1,10 @@
+.step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.empty-state {
+  color: #888;
+  font-style: italic;
+}

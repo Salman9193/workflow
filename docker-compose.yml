@@ -1,0 +1,36 @@
+services:
+  keycloak:
+    build:
+      context: ./keycloak
+      dockerfile: Dockerfile
+    container_name: workflow-engine-keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      # H2 file-based storage is fine for local dev; swap to a Postgres
+      # service + KC_DB=postgres env vars before this goes anywhere real.
+      KC_HEALTH_ENABLED: "true"
+    ports:
+      - "3000:8080"
+    volumes:
+      - keycloak-data:/opt/keycloak/data
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/9000 && echo -e 'GET /health/ready HTTP/1.1\\r\\nhost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q 'UP'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # app:
+  #   build:
+  #     context: ./workflow-engine-ui
+  #     dockerfile: Dockerfile 
+  #   container_name: workflow-engine-app
+  #   ports:
+  #     - "8080:80"
+  #   depends_on:
+  #     keycloak:
+  #       condition: service_healthy
+
+volumes:
+  keycloak-data:

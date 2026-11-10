@@ -1,0 +1,5 @@
+<div class="instance-create-page">
+  <h2>Start New Instance</h2>
+  <input [(ngModel)]="name" placeholder="Instance name (e.g. Acme Corp — Q3 Onboarding)" />
+  <button (click)="onCreate()" [disabled]="!name.trim()">Start</button>
+</div>

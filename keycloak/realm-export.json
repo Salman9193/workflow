@@ -1,0 +1,76 @@
+{
+  "realm": "workflow-engine",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": false,
+
+  "roles": {
+    "realm": [
+      { "name": "workflow-admin", "description": "Can create/edit forms and workflow templates" },
+      { "name": "compliance-lead", "description": "Reviewer role for compliance approval steps" },
+      { "name": "practice-owner", "description": "Reviewer role for final approval steps" }
+    ]
+  },
+
+  "clients": [
+    {
+      "clientId": "workflow-engine-ui",
+      "name": "Workflow Engine UI",
+      "enabled": true,
+      "publicClient": true,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "http://localhost:4201/*",
+        "http://localhost:8080/*"
+      ],
+      "webOrigins": [
+        "http://localhost:4201",
+        "http://localhost:8080"
+      ],
+      "attributes": {
+        "post.logout.redirect.uris": "http://localhost:4201/*##http://localhost:8080/*"
+      }
+    }
+  ],
+
+  "users": [
+    {
+      "username": "admin-user",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin-user@example.com",
+      "credentials": [
+        { "type": "password", "value": "changeme", "temporary": false }
+      ],
+      "realmRoles": ["workflow-admin", "compliance-lead", "practice-owner"]
+    },
+    {
+      "username": "reviewer-user",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Reviewer",
+      "lastName": "User",
+      "email": "reviewer-user@example.com",
+      "credentials": [
+        { "type": "password", "value": "changeme", "temporary": false }
+      ],
+      "realmRoles": ["compliance-lead"]
+    },
+    {
+      "username": "filler-user",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Filler",
+      "lastName": "User",
+      "email": "filler-user@example.com",
+      "credentials": [
+        { "type": "password", "value": "changeme", "temporary": false }
+      ],
+      "realmRoles": []
+    }
+  ]
+}
