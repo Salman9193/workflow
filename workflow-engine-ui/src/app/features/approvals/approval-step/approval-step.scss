@@ -1,0 +1,110 @@
+.approval-step {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+}
+
+.review-step-block {
+  border: 1px solid var(--hairline, #DAD5CB);
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+
+.review-step-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(176, 141, 87, 0.04);
+  border-bottom: 1px solid var(--hairline, #DAD5CB);
+
+  h4 { margin: 0; font-size: 14px; }
+}
+
+.badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.badge-updated {
+  background: rgba(162, 73, 54, 0.12);
+  color: var(--rust-600, #A24936);
+}
+
+.badge-unchanged {
+  background: rgba(138, 138, 133, 0.12);
+  color: var(--stone-400, #8A8A85);
+}
+
+.decision-form {
+  border-top: 2px solid var(--ink-900, #1B2430);
+  padding-top: 16px;
+
+  .outcome-options {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .flag-picker {
+    background: rgba(176, 141, 87, 0.06);
+    border: 1px dashed var(--brass-500, #B08D57);
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 2px;
+  }
+
+  textarea {
+    width: 100%;
+    max-width: 500px;
+    padding: 8px;
+    border: 1px solid var(--hairline, #DAD5CB);
+    border-radius: 2px;
+    font-family: var(--font-sans, inherit);
+    margin-bottom: 12px;
+  }
+
+  button {
+    background: var(--mat-sys-primary, #B08D57);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+}
+
+.review-step-block.flagged {
+  border-color: var(--rust-600, #A24936);
+}
+
+.review-step-footer {
+  padding: 10px 12px;
+  border-top: 1px solid var(--hairline, #DAD5CB);
+  background: rgba(0,0,0,0.015);
+}
+
+.flag-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.review-step-footer textarea {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  border: 1px solid var(--rust-600, #A24936);
+  border-radius: 2px;
+  font-family: var(--font-sans, inherit);
+}

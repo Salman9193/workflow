@@ -1,0 +1,29 @@
+.app-toolbar {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app-title {
+  font-family: var(--font-serif, inherit);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+
+.app-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.active-link {
+  font-weight: 600;
+}
+
+.app-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}

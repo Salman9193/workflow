@@ -1,0 +1,15 @@
+<div class="list-page">
+  <header>
+    <h2>Workflows</h2>
+    <a routerLink="/admin/workflows/new">+ New Workflow</a>
+  </header>
+
+  @for (wf of workflows; track wf.id) {
+    <a class="list-row" [routerLink]="['/admin/workflows', wf.id, 'edit']">
+      <span class="name">{{ wf.name }}</span>
+      <span class="version">v{{ wf.version }} · {{ wf.steps.length }} steps</span>
+    </a>
+  } @empty {
+    <p>No workflows yet.</p>
+  }
+</div>

@@ -1,0 +1,33 @@
+@if (loading) {
+  <p>Loading…</p>
+} @else if (!instance) {
+  <p>Instance not found.</p>
+} @else {
+  <div class="instance-detail-page">
+    <header>
+      <h2>{{ instance.name }}</h2>
+      <span class="status" [class]="'status-' + instance.status">{{ instance.status }}</span>
+    </header>
+
+    @if (instance.status === 'completed') {
+      <p class="completed-message">This workflow is complete.</p>
+    } @else if (instance.status === 'rejected') {
+      <p class="rejected-message">This workflow was rejected.</p>
+    }@else if (currentStep?.type === 'form') {
+    <h3>{{ currentStep!.name }}</h3>
+    <app-form-renderer-page
+        [formSchemaName]="currentStep!.formSchemaName!"
+        [initialData]="prefillData"
+        [changeComment]="changeComment"
+        mode="edit"
+        (submitted)="onFormSubmitted($event)">
+    </app-form-renderer-page>
+    } @else if (currentStep?.type === 'approval') {
+      <h3>{{ currentStep!.name }}</h3>
+      <app-approval-step
+        [reviewSteps]="reviewSteps"
+        (decisionSubmitted)="onApprovalDecision($event)">
+      </app-approval-step>
+    }
+    </div>
+}

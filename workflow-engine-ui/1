@@ -1,0 +1,10 @@
+<div class="home-page">
+  @if (username) {
+    <h1>Welcome, {{ username }}</h1>
+    <p>Use the menu above to browse forms, workflows, and instances.</p>
+  } @else {
+    <h1>Welcome</h1>
+    <p>Please login to access the Workflow Engine.</p>
+    <button (click)="login()">Login</button>
+  }
+</div>

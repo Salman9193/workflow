@@ -1,0 +1,66 @@
+<div class="workflow-editor-page">
+  <header>
+    <h2>{{ editingId ? 'Edit Workflow' : 'New Workflow' }}</h2>
+    <input [(ngModel)]="workflowName" placeholder="Workflow name (e.g. Client Onboarding)" />
+  </header>
+
+  <div class="steps-editor">
+    @for (step of steps; track step.id; let i = $index) {
+      <div class="step-row">
+        <span class="step-order">{{ step.order }}</span>
+
+        <input [(ngModel)]="step.name" placeholder="Step name" class="step-name-input" />
+
+        <select [(ngModel)]="step.type">
+          <option value="form">Form</option>
+          <option value="notification">Notification</option>
+          <option value="approval">Approval</option>
+        </select>
+
+        @if (step.type === 'form') {
+          <select [(ngModel)]="step.formSchemaName">
+            <option value="" disabled selected>Choose a form…</option>
+            @for (f of availableForms; track f.id) {
+              <option [value]="f.name">{{ f.name }}</option>
+            }
+          </select>
+        }
+
+        @if (step.type === 'approval') {
+          <div class="approval-config">
+            <label>Reviewer role: <input [(ngModel)]="step.reviewerRole" placeholder="e.g. compliance-lead" /></label>
+            <div class="review-picker">
+              <p>Reviews:</p>
+              @for (prior of priorSteps(step); track prior.id) {
+                <label>
+                  <input
+                    type="checkbox"
+                    [checked]="(step.reviewStepIds ?? []).includes(prior.id)"
+                    (change)="toggleReviewStep(step, prior.id)" />
+                  {{ prior.name || '(unnamed step)' }}
+                </label>
+              }
+              @if (priorSteps(step).length === 0) {
+                <em>No earlier form steps yet to review.</em>
+              }
+            </div>
+          </div>
+        }
+
+        <div class="step-actions">
+          <button (click)="moveUp(i)" [disabled]="i === 0">↑</button>
+          <button (click)="moveDown(i)" [disabled]="i === steps.length - 1">↓</button>
+          <button (click)="removeStep(i)">✕</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <button class="add-step-btn" (click)="addStep()">+ Add Step</button>
+
+  <footer>
+    <button (click)="onSave()" [disabled]="!canSave || saving">
+      {{ saving ? 'Saving...' : 'Save Workflow' }}
+    </button>
+  </footer>
+</div>

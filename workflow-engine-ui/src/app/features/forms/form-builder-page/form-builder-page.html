@@ -1,0 +1,13 @@
+@if (loading) {
+  <p>Loading form…</p>
+} @else {
+  <div class="builder-page">
+    <header class="builder-header">
+      <h3>{{ editingId ? 'Edit Form' : 'New Form' }}</h3>
+      <input type="text" placeholder="Form name" [(ngModel)]="formName" />
+      <button (click)="onSave()" [disabled]="saving">{{ saving ? 'Saving...' : 'Save Form' }}</button>
+      @if (savedMessage) { <span class="saved-message">{{ savedMessage }}</span> }
+    </header>
+    <form-builder [form]="builderSchema" (change)="onBuilderChange($event)"></form-builder>
+  </div>
+}

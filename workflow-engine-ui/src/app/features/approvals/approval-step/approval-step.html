@@ -1,0 +1,71 @@
+<div class="approval-step">
+  <section class="review-steps">
+    @for (step of reviewSteps; track step.stepId) {
+      <div class="review-step-block" [class.flagged]="flaggedStepIds.has(step.stepId)">
+        <header class="review-step-header">
+          <h4>{{ step.stepName }}</h4>
+          @if (step.updatedSinceLastReview) {
+            <span class="badge badge-updated">Updated</span>
+          } @else {
+            <span class="badge badge-unchanged">Unchanged</span>
+          }
+        </header>
+
+        <app-form-renderer-page
+          [formSchemaName]="step.formSchemaName"
+          mode="review">
+        </app-form-renderer-page>
+
+        <footer class="review-step-footer">
+          <label class="flag-toggle">
+            <input
+              type="checkbox"
+              [checked]="flaggedStepIds.has(step.stepId)"
+              (change)="toggleFlag(step.stepId)" />
+            Request changes on this step
+          </label>
+
+          @if (flaggedStepIds.has(step.stepId)) {
+            <textarea
+              [(ngModel)]="stepComments[step.stepId]"
+              [name]="'comment-' + step.stepId"
+              placeholder="What needs to change here?"
+              rows="2">
+            </textarea>
+          }
+        </footer>
+      </div>
+    }
+  </section>
+
+  <section class="decision-form">
+    <h4>Overall Decision</h4>
+
+    <div class="outcome-options">
+      <label>
+        <input type="radio" name="outcome" value="approved" [(ngModel)]="outcome" />
+        Approve all
+      </label>
+      <label>
+        <input type="radio" name="outcome" value="rejected" [(ngModel)]="outcome" />
+        Reject workflow
+      </label>
+      <label>
+        <input type="radio" name="outcome" value="change_requested" [(ngModel)]="outcome" [disabled]="flaggedStepIds.size === 0" />
+        Request changes {{ flaggedStepIds.size > 0 ? '(' + flaggedStepIds.size + ' flagged)' : '' }}
+      </label>
+    </div>
+
+    @if (outcome === 'rejected') {
+      <textarea
+        [(ngModel)]="overallComment"
+        placeholder="Reason for rejection (required)"
+        rows="3">
+      </textarea>
+    }
+
+    <button (click)="onSubmit()" [disabled]="!canSubmit || submitting">
+      {{ submitting ? 'Submitting...' : 'Submit Decision' }}
+    </button>
+  </section>
+</div>

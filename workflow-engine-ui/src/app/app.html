@@ -1,0 +1,38 @@
+<mat-toolbar class="app-toolbar">
+  <span class="app-title">{{ title() }}</span>
+
+  <nav class="app-nav">
+    <div *kaHasRoles="['workflow-admin']; checkRealm: true">
+      <button mat-button [matMenuTriggerFor]="formsMenu">Forms</button>
+      <mat-menu #formsMenu="matMenu">
+        <a mat-menu-item routerLink="/admin/forms">List Forms</a>
+        <a mat-menu-item routerLink="/admin/forms/new">Create New Form</a>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="workflowsMenu">Workflows</button>
+      <mat-menu #workflowsMenu="matMenu">
+        <a mat-menu-item routerLink="/admin/workflows">List Workflows</a>
+        <a mat-menu-item routerLink="/admin/workflows/new">Create New Workflow</a>
+      </mat-menu>
+    </div>
+
+    <button mat-button [matMenuTriggerFor]="instancesMenu">Workflow Instances</button>
+    <mat-menu #instancesMenu="matMenu">
+      <a mat-menu-item routerLink="/workflow-templates">Browse by Workflow</a>
+      <a mat-menu-item routerLink="/instances">All Instances</a>
+    </mat-menu>
+  </nav>
+
+  @if (username) {
+    <span class="user-info">
+      {{ username }}
+      <button mat-button (click)="logout()">Logout</button>
+    </span>
+  } @else {
+    <button mat-button (click)="login()">Login</button>
+  }
+</mat-toolbar>
+
+<main class="app-content">
+  <router-outlet></router-outlet>
+</main>
